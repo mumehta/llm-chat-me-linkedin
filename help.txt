@@ -1,0 +1,28 @@
+uv tool install hf 
+hf auth login --token <your hf_token>
+
+# check the auth
+hf auth whoami
+
+# Hugging face expects requirements to be given using requirements.txt
+uv export --format requirements.txt --no-hashes --no-color > requirements.txt
+
+# if you have to delete the space
+uvx hf delete-repo cybersecuretech101/llm-chat-me-linkedin --repo-type=space
+
+uv run gradio deploy
+
+# Add .env and .venv to .gitignore
+# when deploying to hf's space, set your secrets in space's settings
+# OPENAI_API_KEY=xxx...
+# PUSHOVER_USER=xxx...
+# PUSHOVER_TOKEN=xxx...
+
+# PUSHOVER_USER is your pushover user id - available when you login on screen
+# For PUSHOVER_TOKEN, you create an app with url: https://pushover.net/apps/build
+# It gives you pushover token
+
+# Application when deployed to hf
+https://huggingface.co/spaces/cybersecuretech101/llm-chat-me-linkedin
+
+<hf.png> shows when you get mobile notification in PushOver mobile app.
