@@ -1,8 +1,10 @@
 # LLM Chat Me – LinkedIn / Portfolio Chatbot
 
-An AI-powered **personal chatbot** for **Munish Mehta**, built with **Python**, **Gradio**, **OpenAI**, and **Pushover** and designed to be deployed on **Hugging Face Spaces**.
+An AI-powered **personal portfolio chatbot** built with **Python**, **Gradio**, **OpenAI**, and [**Pushover**](https://www.pushover.net), designed to be deployed on **Hugging Face Spaces**.
 
-The app answers user questions about **Munish Mehta** using:
+This repository is currently configured for **Munish Mehta**, but it can be easily adapted for your own profile, resume, or portfolio website.
+
+The app answers user questions about the configured profile using:
 
 - `me/summary.txt`
 - `me/linkedin.pdf`
@@ -41,6 +43,19 @@ This is the date up to which the chatbot has information based on the exported `
     └── summary.txt     # Short personal/professional summary
 ```
 
+## 👤 Use this project for your own profile
+
+If you want to implement this chatbot for yourself, just do the following:
+
+1. replace `me/linkedin.pdf` with your own exported LinkedIn profile PDF
+2. update `me/summary.txt` with your own background, skills, and summary
+3. create an account at [pushover.net](https://www.pushover.net), install the app on your phone, and set the required values in `.env`
+4. run the app locally with:
+
+```powershell
+uv run app.py
+```
+
 ## ⚙️ Requirements
 
 Before running the app, make sure you have:
@@ -48,7 +63,7 @@ Before running the app, make sure you have:
 - **Python 3.13+**
 - **[`uv`](https://docs.astral.sh/uv/)** installed
 - an **OpenAI API key**
-- a **Pushover** account/app if you want notifications
+- a [**Pushover**](https://www.pushover.net) account/app if you want notifications
 - a **Hugging Face** account/token if you want to deploy the app
 
 ## 🚀 Run locally with `uv`
@@ -109,13 +124,27 @@ http://127.0.0.1:7860
 
 ## 🔔 Pushover setup
 
-Pushover is used to send mobile notifications when the chatbot records contact info or logs an unknown question.
+[**Pushover**](https://www.pushover.net) is a service that makes it very simple to send notifications to your mobile phone using APIs. It does **not** use your mobile number directly. Instead, it delivers notifications to the **Pushover mobile app** installed on your phone.
+
+For this project, Pushover is a practical alternative to SMS providers such as Twilio because it avoids phone-number-based messaging setup and some of the restrictions that often come with sending SMS notifications.
+
+In `app.py`, notifications are sent via a **POST** request to:
+
+```text
+https://api.pushover.net/1/messages.json
+```
+
+The request uses these two values:
+
+- `PUSHOVER_USER` — your Pushover user key
+- `PUSHOVER_TOKEN` — your Pushover application/API token
 
 To receive these alerts, you should:
 
-1. install the **Pushover mobile app**
-2. sign in using your Pushover credentials
-3. use your Pushover keys in the project's `.env` file or Hugging Face secrets
+1. create an account at [pushover.net](https://www.pushover.net)
+2. install the **Pushover mobile app** on your phone
+3. sign in with your Pushover credentials
+4. use your Pushover keys in the project's `.env` file or Hugging Face secrets
 
 ### `PUSHOVER_USER`
 
@@ -144,7 +173,7 @@ The image below shows the Hugging Face Space UI and illustrates the type of user
 
 ## 🤗 Deploy to Hugging Face Spaces
 
-Hugging Face Spaces uses the repo's **`README.md` frontmatter** and installs Python dependencies from **`requirements.txt`**.
+Hugging Face Spaces installs Python dependencies from **`requirements.txt`** and runs the Gradio app defined in the repo.
 
 ### 1) Install the Hugging Face CLI
 
