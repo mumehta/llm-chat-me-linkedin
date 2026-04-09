@@ -1,10 +1,3 @@
----
-title: llm-chat-me-linkedin
-app_file: app.py
-sdk: gradio
-sdk_version: 6.11.0
----
-
 # LLM Chat Me – LinkedIn / Portfolio Chatbot
 
 An AI-powered **personal chatbot** for **Munish Mehta**, built with **Python**, **Gradio**, **OpenAI**, and **Pushover** and designed to be deployed on **Hugging Face Spaces**.
